@@ -1,0 +1,26 @@
+<div class="content-container">
+  <div class="content-area">
+    <h2>Project overview</h2>
+    <button class="btn btn-secondary" [routerLink]="['/project']">New</button>
+    <table class="table" *ngIf="(projects | async).length > 0; else noProjects">
+      <thead>
+        <tr>
+          <th>Project</th>
+          <th>Applications</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let project of projects | async">
+          <td class="align-middle"><a [routerLink]="['/project', project.id]">{{project.name}}</a></td>
+          <td class="align-middle">{{project.applications}}</td>
+          <td><button class="btn btn-sm" [routerLink]="['/project', project.id]">Edit</button>
+            <button class="btn btn-danger-outline btn-sm">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noProjects>
+      <p>Click <em>new</em> to create a first project.</p>
+    </ng-template>
+  </div>
+</div>
