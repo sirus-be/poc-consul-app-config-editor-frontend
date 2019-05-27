@@ -14,19 +14,38 @@ import { SecretListComponent } from './secret-list/secret-list.component';
 import { EnvironmentListComponent } from './environment-list/environment-list.component';
 import { VersionListComponent } from './version-list/version-list.component';
 import { GlobalSecretListComponent } from './global-secret-list/global-secret-list.component';
+import { ApplicationCreateComponent } from './application-create/application-create.component';
+import { ApplicationComponent } from './application/application.component';
+import { SecretCreateComponent } from './secret-create/secret-create.component';
+import { SecretComponent } from './secret/secret.component';
 
 const appRoutes: Routes = [
+  { path: 'projects/new', component: ProjectCreateComponent },
   { path: 'projects', component: ProjectListComponent },
   { path: 'global-secrets', component: GlobalSecretListComponent },
   {
-    path: 'project/:projectId', component: ProjectComponent, children: [
+    path: 'projects/:projectId', component: ProjectComponent, children: [
       {
         path: 'applications',
         component: ApplicationListComponent
       },
       {
+        path: 'applications/new',
+        component: ApplicationCreateComponent
+      },
+      {
+        path: 'applications/:applicationId',
+        component: ApplicationComponent
+      },
+      {
         path: 'environments',
         component: EnvironmentListComponent
+      }, {
+        path: 'secrets/new',
+        component: SecretCreateComponent
+      }, {
+        path: 'secrets/:secretId',
+        component: SecretComponent
       }, {
         path: 'secrets',
         component: SecretListComponent
@@ -42,7 +61,6 @@ const appRoutes: Routes = [
       }
     ]
   },
-  { path: 'project', component: ProjectCreateComponent },
   {
     path: '',
     redirectTo: '/projects',
@@ -60,7 +78,11 @@ const appRoutes: Routes = [
     SecretListComponent,
     EnvironmentListComponent,
     VersionListComponent,
-    GlobalSecretListComponent
+    GlobalSecretListComponent,
+    ApplicationCreateComponent,
+    ApplicationComponent,
+    SecretCreateComponent,
+    SecretComponent
   ],
   imports: [
     BrowserModule,

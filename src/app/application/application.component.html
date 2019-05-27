@@ -1,0 +1,13 @@
+<div class="content-container">
+  <div class="content-area" *ngIf="application">
+    <h2>Application <em>{{application.name}}</em></h2>
+    <button class="btn btn-primary" (click)="editConfig()">New configuration</button>
+
+    <p>More appconfig stuff here:</p>
+    <ul>
+      <li>Source control</li>
+      <li>Build project info</li>
+      <li>Deploy info</li>
+    </ul>
+  </div>
+</div>

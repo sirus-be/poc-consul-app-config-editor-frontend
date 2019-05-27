@@ -1,3 +1,24 @@
-<p>
-  application-list works!
-</p>
+<div class="content-container">
+  <div class="content-area" *ngIf="project">
+    <h2>Applications in <em>{{project.name}}</em></h2>
+    <button class="btn btn-secondary" [routerLink]="['/projects', project.id, 'applications', 'new']">New</button>
+    <table class="table" *ngIf="apps && apps.length > 0; else noApps">
+      <thead>
+        <tr>
+          <th>Application</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let app of apps">
+          <td class="align-middle"><a [routerLink]="['/projects', project.id, 'applications', app.id]">{{app.name}}</a></td>
+          <td><button class="btn btn-sm" [routerLink]="['/projects', project.id, 'applications', app.id]">Edit</button>
+            <button class="btn btn-danger-outline btn-sm">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noApps>
+      <p>Click <em>new</em> to create an application in the project.</p>
+    </ng-template>
+  </div>
+</div>

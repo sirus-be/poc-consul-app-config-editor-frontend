@@ -16,5 +16,4 @@ export class ProjectListComponent implements OnInit {
   ngOnInit() {
     this.projects = this.projectService.search();
   }
-
 }
