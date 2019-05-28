@@ -1,13 +1,19 @@
-<div class="content-container">
-  <div class="content-area" *ngIf="application">
-    <h2>Application <em>{{application.name}}</em></h2>
-    <button class="btn btn-primary" (click)="editConfig()">New configuration</button>
-
-    <p>More appconfig stuff here:</p>
-    <ul>
-      <li>Source control</li>
-      <li>Build project info</li>
-      <li>Deploy info</li>
-    </ul>
+<div class="content-container stretch" *ngIf="application">
+  <div class="content-area">
+    <router-outlet></router-outlet>
   </div>
+  <nav class="sidenav">
+    <section class="sidenav-content">
+      <section class="nav-group">
+        <label for="tabexample2">Application <em>{{application.name}}</em></label>
+        <ul class="nav-list">
+          <li><a class="nav-link" routerLink="info" routerLinkActive="active">Info</a></li>
+          <li><a class="nav-link" routerLink="sources" routerLinkActive="active">Source control</a></li>
+          <li><a class="nav-link" routerLink="build" routerLinkActive="active">Build</a></li>
+          <li><a class="nav-link" routerLink="configuration" routerLinkActive="active">Configuration</a></li>
+          <li><a class="nav-link" routerLink="deploy" routerLinkActive="active">Deploy status</a></li>
+        </ul>
+      </section>
+    </section>
+  </nav>
 </div>

@@ -18,6 +18,14 @@ import { ApplicationCreateComponent } from './application-create/application-cre
 import { ApplicationComponent } from './application/application.component';
 import { SecretCreateComponent } from './secret-create/secret-create.component';
 import { SecretComponent } from './secret/secret.component';
+import { ApplicationInfoComponent } from './application-info/application-info.component';
+import { ConfigurationComponent } from './configuration/configuration.component';
+import { ConfigurationCreateComponent } from './configuration-create/configuration-create.component';
+import { SourceControlComponent } from './source-control/source-control.component';
+import { BuildInfoComponent } from './build-info/build-info.component';
+import { DeployInfoComponent } from './deploy-info/deploy-info.component';
+import { NgJsonEditorModule } from 'ang-jsoneditor';
+import { ConfigurationMtaComponent } from './configuration-mta/configuration-mta.component';
 
 const appRoutes: Routes = [
   { path: 'projects/new', component: ProjectCreateComponent },
@@ -35,7 +43,42 @@ const appRoutes: Routes = [
       },
       {
         path: 'applications/:applicationId',
-        component: ApplicationComponent
+        component: ApplicationComponent,
+        children: [
+          {
+            path: 'info',
+            component: ApplicationInfoComponent
+          },
+          {
+            path: 'sources',
+            component: SourceControlComponent
+          },
+          {
+            path: 'build',
+            component: BuildInfoComponent
+          },
+          {
+            path: 'configuration/create',
+            component: ConfigurationCreateComponent
+          },
+          {
+            path: 'configuration/mta',
+            component: ConfigurationMtaComponent
+          },
+          {
+            path: 'configuration',
+            component: ConfigurationComponent
+          },
+          {
+            path: 'deploy',
+            component: DeployInfoComponent
+          },
+          {
+            path: '',
+            redirectTo: 'info',
+            pathMatch: 'full'
+          }
+        ]
       },
       {
         path: 'environments',
@@ -82,13 +125,21 @@ const appRoutes: Routes = [
     ApplicationCreateComponent,
     ApplicationComponent,
     SecretCreateComponent,
-    SecretComponent
+    SecretComponent,
+    ApplicationInfoComponent,
+    ConfigurationComponent,
+    ConfigurationCreateComponent,
+    SourceControlComponent,
+    BuildInfoComponent,
+    DeployInfoComponent,
+    ConfigurationMtaComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ClarityModule,
     BrowserAnimationsModule,
+    NgJsonEditorModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

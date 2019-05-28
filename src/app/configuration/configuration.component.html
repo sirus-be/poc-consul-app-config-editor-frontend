@@ -1,0 +1,97 @@
+<h2>Configuration
+  <select name="options" [(ngModel)]="environment">
+    <option value="dev">Development</option>
+    <option value="acc">Accepatance</option>
+    <option value="prod">Production</option>
+  </select>
+</h2>
+
+<ng-container *ngIf="environment === 'dev'">
+  <clr-icon class="green" shape="check"></clr-icon> Deployed
+</ng-container>
+<ng-container *ngIf="environment !== 'dev'">
+  <clr-icon class="red" shape="times"></clr-icon> Not yet deployed
+</ng-container>
+
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink id="link1">JSON</button>
+    <clr-tab-content id="content1" *clrIfActive>
+      <br />
+      <json-editor disabled [options]="editorOptions" [data]="data"></json-editor>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Key/values</button>
+    <clr-tab-content>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Secret?</th>
+            <th>Json Path</th>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let key of keys">
+            <td>
+              <ng-container *ngIf="key.secret">
+                <clr-icon shape="check"></clr-icon>
+              </ng-container>
+              <ng-container *ngIf="!key.secret">
+                <clr-icon shape="times"></clr-icon>
+              </ng-container>
+            </td>
+            <td>{{key.jsonPath}}</td>
+            <td>{{key.path}}</td>
+            <td>
+              <ng-container *ngIf="!key.secret">
+                <span>{{key.value}}</span>
+              </ng-container>
+              <ng-container *ngIf="key.secret">
+                <clr-icon shape="unknown-status"></clr-icon>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>
+
+<button class="btn" routerLink="create">Edit</button>
+<button class="btn" [disabled]="isDeployed" (click)="isDeployed = true;">Deploy</button>
+<button class="btn" routerLink="mta" *ngIf="environment === 'dev'">Perform MTA</button>
+<button class="btn" *ngIf="environment === 'acc'">Perform MTP</button>
+
+<h3>History</h3>
+<p>You can view the different versions of the configuration:</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>User</th>
+      <th>Note</th>
+      <th>Deployed?</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let history of historyRecords">
+      <td>{{history.date | date}}</td>
+      <td>{{history.user}}</td>
+      <td>{{history.note}}</td>
+      <td>
+        <ng-container *ngIf="history.deployed">
+          <clr-icon shape="check"></clr-icon>
+        </ng-container>
+      </td>
+      <td>
+        <button class="btn btn-sm" *ngIf="!history.deployed">Deploy</button>
+        <button class="btn btn-sm">Restore</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

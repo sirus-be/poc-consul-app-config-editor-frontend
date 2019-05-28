@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./environment-list.component.css']
 })
 export class EnvironmentListComponent implements OnInit {
+  dev = true;
 
   constructor() { }
 

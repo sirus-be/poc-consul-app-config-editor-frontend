@@ -1,0 +1,91 @@
+<h2>Configuration</h2>
+<span class="label label-info">{{environment}}</span>
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink id="link1">JSON</button>
+    <clr-tab-content id="content1" *clrIfActive>
+      <br />
+      <json-editor disabled [options]="editorOptions" [data]="data"></json-editor>
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Key/values</button>
+    <clr-tab-content>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Secret?</th>
+            <th>Json Path</th>
+            <th>Key</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let key of keys">
+            <td>
+              <ng-container *ngIf="key.secret">
+                <clr-icon shape="check"></clr-icon>
+              </ng-container>
+              <ng-container *ngIf="!key.secret">
+                <clr-icon shape="times"></clr-icon>
+              </ng-container>
+            </td>
+            <td>{{key.jsonPath}}</td>
+            <td>{{key.path}}</td>
+            <td>
+              <ng-container *ngIf="!key.secret">
+                <span>{{key.value}}</span>
+              </ng-container>
+              <ng-container *ngIf="key.secret">
+                <clr-icon shape="unknown-status"></clr-icon>
+              </ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>
+
+<br />
+<b>Validation</b>
+
+<div class="alert alert-danger" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+      </div>
+      <span class="alert-text">Invalid Json document.</span>
+    </div>
+  </div>
+</div>
+
+<div class="alert alert-danger" role="alert">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <div class="alert-icon-wrapper">
+          <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+        </div>
+        <span class="alert-text">Openshift projects can only have string values.</span>
+      </div>
+    </div>
+  </div>
+
+<div class="alert alert-warning" role="alert">
+  <div class="alert-items">
+    <div class="alert-item static">
+      <div class="alert-icon-wrapper">
+        <clr-icon class="alert-icon" shape="exclamation-triangle"></clr-icon>
+      </div>
+      <span class="alert-text">The secret with key '/openshift/projects/1/applications/1/dev/database/password' does not
+        have a value yet for <em>dev</em>. You will not be able to deploy without a value.</span>
+    </div>
+  </div>
+</div>
+
+<br />
+<b>What dit you change?</b>
+<textarea clrTextarea [(ngModel)]="description" name="description" required></textarea>
+
+<button class="btn btn-primary">Save</button>
